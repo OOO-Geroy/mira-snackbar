@@ -19,14 +19,14 @@
  * @subpackage Mira_Snackbar/includes
  * @author     Your Name <email@example.com>
  */
-class Mira_Snackbar_Model
+class Mira_Snackbar_Cpt_Model
 {
 
 	function __construct()
 	{
 	}
 
-	public function register_post_type()
+	public function register_cpt()
 	{
 		register_post_type('mira_snackbar', [
 			'label'  => null,

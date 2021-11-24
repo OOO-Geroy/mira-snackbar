@@ -78,7 +78,8 @@ class Mira_Snackbar {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-		$this->define_model();
+		$this->define_cpt();
+		$this->define_acf_groups();
 
 	}
 
@@ -113,10 +114,16 @@ class Mira_Snackbar {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-mira-snackbar-i18n.php';
 
 		/**
-		 * The class responsible for defining cpt and acf groups
+		 * The class responsible for defining cpt
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-mira-snackbar-model.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-mira-snackbar-cpt-model.php';
+
+		/**
+		 * The class responsible for defining acf groups
+		 * of the plugin.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-mira-snackbar-acf-model.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
@@ -151,11 +158,19 @@ class Mira_Snackbar {
 	}
 
 	/**
-	 * Define model
+	 * Define cpt
 	 */
-	private function define_model() {
-		$plugin_model = new Mira_Snackbar_Model();
-		$this->loader->add_action( 'init', $plugin_model, 'register_post_type' );
+	private function define_cpt() {
+		$plugin_model = new Mira_Snackbar_Cpt_Model();
+		$this->loader->add_action( 'init', $plugin_model, 'register_cpt' );
+	}
+
+	/**
+	 * Define acf groups
+	 */
+	private function define_acf_groups() {
+		$plugin_model = new Mira_Snackbar_Acf_Model();
+		$this->loader->add_action( 'acf/init', $plugin_model, 'register_acf_groups' );
 	}
 
 	/**
