@@ -106,6 +106,7 @@ class Mira_Snackbar_Acf_Model
 						'choices' => array(
 							'left' => 'Left',
 							'right' => 'Right',
+							'fullwidth' => 'Full width',
 						),
 						'allow_null' => 0,
 						'default_value' => '',
@@ -121,7 +122,7 @@ class Mira_Snackbar_Acf_Model
 						'required' => 0,
 						'conditional_logic' => 0,
 						'wrapper' => array(
-							'width' => '50',
+							'width' => '100',
 							'class' => '',
 							'id' => '',
 						),
@@ -140,7 +141,7 @@ class Mira_Snackbar_Acf_Model
 						'required' => 0,
 						'conditional_logic' => 0,
 						'wrapper' => array(
-							'width' => '50',
+							'width' => '100',
 							'class' => '',
 							'id' => '',
 						),

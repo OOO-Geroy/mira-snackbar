@@ -80,6 +80,7 @@ class Mira_Snackbar {
 		$this->define_public_hooks();
 		$this->define_cpt();
 		$this->define_acf_groups();
+		$this->define_view();
 
 	}
 
@@ -124,6 +125,12 @@ class Mira_Snackbar {
 		 * of the plugin.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-mira-snackbar-acf-model.php';
+
+		/**
+		 * The class responsible for defining snackbar view
+		 * of the plugin.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-mira-snackbar-view.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
@@ -203,6 +210,13 @@ class Mira_Snackbar {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
+	}
+
+	private function define_view() {
+		$view_plugin = new Mira_Snackbar_View();
+
+		$this->loader->add_action( 'mira_snackbar_top', $view_plugin, 'top_view' );
+		$this->loader->add_action( 'mira_snackbar_bot', $view_plugin, 'bot_view' );
 	}
 
 	/**
