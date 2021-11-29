@@ -2,3 +2,124 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+:root {
+  --mira-snackbar-row-gap: 15px;
+  --mira-snackbar-x-gap: 30px;
+  --mira-snackbar-y-gap: 30px;
+  --mira-snackbar-width: 300px;
+  --mira-snackbar-font-size: 1rem;
+  --mira-snackbar-default-color: #fff;
+  --mira-snackbar-default-background: #3d3d3d;
+}
+
+.mira-snackbar-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: var(--mira-snackbar-row-gap);
+  width: 100%;
+}
+
+.mira-snackbar-list--static {
+  position: static;
+}
+
+.mira-snackbar-list--fixed {
+  position: fixed;
+  z-index: 999;
+}
+
+.mira-snackbar-list--sticky {
+  position: sticky;
+}
+
+.mira-snackbar-list--fixed.mira-snackbar-list--left {
+  left: var(--mira-snackbar-x-gap);
+  max-width: var(--mira-snackbar-width);
+}
+
+.mira-snackbar-list--fixed.mira-snackbar-list--right {
+  right: var(--mira-snackbar-x-gap);
+  max-width: var(--mira-snackbar-width);
+}
+
+.mira-snackbar-list--fixed.mira-snackbar-list--fullwidth {
+  width: 100%;
+}
+
+.mira-snackbar-list--fixed.mira-snackbar-list--top {
+  top: var(--mira-snackbar-y-gap);
+}
+
+.mira-snackbar-list--fixed.mira-snackbar-list--bot {
+  bottom: var(--mira-snackbar-y-gap);
+}
+
+.mira-snackbar-list--fixed.mira-snackbar-list--fullwidth.mira-snackbar-list--top {
+  top: 0;
+}
+
+.mira-snackbar-list--fixed.mira-snackbar-list--fullwidth.mira-snackbar-list--bot {
+  bottom: 0;
+}
+
+.mira-snackbar-list--sticky.mira-snackbar-list--top {
+  top: 0;
+}
+
+.mira-snackbar-list--sticky.mira-snackbar-list--bot {
+  bottom: 0;
+}
+
+.mira-snackbar {
+  position: relative;
+  font-size: var(--mira-snackbar-font-size);
+  color: var(--mira-snackbar-default-color);
+  background-color: var(--mira-snackbar-default-background);
+  line-height: 1.2em;
+  padding: 15px;
+}
+
+.mira-snackbar-list--fullwidth .mira-snackbar {
+  text-align: center;
+  padding: 10px 15px;
+}
+
+.mira-snackbar__close {
+  background-color: transparent;
+  display: inline-block;
+  cursor: pointer;
+  padding: 0;
+  border: 0;
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  font-size: 20px;
+  transition: opacity 170ms;
+}
+
+.mira-snackbar__close:hover {
+  opacity: .8;
+}
+
+.mira-snackbar-list--fullwidth .mira-snackbar__close {
+  right: 15px;
+  top: 10px;
+}
+
+.mira-snackbar-list--left .mira-snackbar__close,
+.mira-snackbar-list--right .mira-snackbar__close {
+  right: 15px;
+  top: 15px;
+}
+
+.mira-snackbar .dashicons {
+  font-family: dashicons;
+  display: inline-block;
+  line-height: 1;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.mira-snackbar .dashicons-no-alt:after {
+  content: "\f335";
+}

@@ -199,6 +199,36 @@ class Mira_Snackbar_Acf_Model
 						'media_upload' => 1,
 						'delay' => 0,
 					),
+					array(
+						'key' => 'field_61a4fb514c4f8',
+						'label' => 'Background color',
+						'name' => 'background_color',
+						'type' => 'color_picker',
+						'instructions' => '',
+						'required' => 0,
+						'conditional_logic' => 0,
+						'wrapper' => array(
+							'width' => '50',
+							'class' => '',
+							'id' => '',
+						),
+						'default_value' => '',
+					),
+					array(
+						'key' => 'field_61a4fb6f4c4f9',
+						'label' => 'Text color',
+						'name' => 'text_color',
+						'type' => 'color_picker',
+						'instructions' => '',
+						'required' => 0,
+						'conditional_logic' => 0,
+						'wrapper' => array(
+							'width' => '50',
+							'class' => '',
+							'id' => '',
+						),
+						'default_value' => '',
+					),
 				),
 				'location' => array(
 					array(

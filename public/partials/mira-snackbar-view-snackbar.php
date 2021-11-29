@@ -15,18 +15,24 @@
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
-<?
-
-?>
 
 <? if (count($snackbar_data['snackbars'])) { ?>
-    <div class="mira-snackbar-list mira-snackbar-list--<?= $snackbar_data['vertical_position'] ?? 'top' ?> mira-snackbar-list--<?= $snackbar_data['horizontal_location'] ?? 'fullwidth' ?>">
+    <div class="mira-snackbar-list 
+    mira-snackbar-list--<?= $snackbar_data['vertical_position'] ?? 'top' ?> 
+    mira-snackbar-list--<?= $snackbar_data['horizontal_location'] ?? 'fullwidth' ?>
+    mira-snackbar-list--<?= $snackbar_data['layout_type'] ?? 'fixed' ?>
+    ">
         <? foreach ($snackbar_data['snackbars'] as $snackbar) { ?>
-            <div class="mira-snackbar mira-snackbar--<?= $snackbar['layout_type'] ?>">
+            <div class="mira-snackbar" 
+            <? if ($snackbar['background_color'] || $snackbar['text_color']) { ?> style="
+            <? if ($snackbar['background_color']) { ?> background-color: <?= $snackbar['background_color'] ?>;<? } ?>
+            <? if ($snackbar['text_color']) { ?> color: <?= $snackbar['text_color'] ?>; <? } ?>
+            "<? } ?>>
                 <div class="mira-snackbar__inner">
                     <?= $snackbar['content'] ?>
                 </div>
-                <div class="mira-snackbar__close">
+                <div role="button" class="mira-snackbar__close" title="close">
+                    <i class="dashicons dashicons-no-alt"></i>
                 </div>
                 <? if ($snackbar['show_extra_text']) { ?>
                     <div class="mira-snackbar__extra">

@@ -17,10 +17,9 @@ class Mira_Snackbar_View
 
     public function top_view()
     {
-        $snackbars_data = $this->get_snackbar_data($this->get_top_snackbars());
+        $snackbars_data = $this->get_snackbar_data($this->get_top_snackbars(), 'top');
         foreach ($snackbars_data as $snackbar_data) {
             if (count($snackbar_data['snackbars'])) {
-                $snackbar_data['vertical_position'] = 'top';
                 require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/mira-snackbar-view-snackbar.php';
             }
         }
@@ -28,10 +27,9 @@ class Mira_Snackbar_View
 
     public function bot_view()
     {
-        $snackbars_data = $this->get_snackbar_data($this->get_bot_snackbars());
+        $snackbars_data = $this->get_snackbar_data($this->get_bot_snackbars(), 'bot');
         foreach ($snackbars_data as $snackbar_data) {
             if (count($snackbar_data['snackbars'])) {
-                $snackbar_data['vertical_position'] = 'bot';
                 require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/mira-snackbar-view-snackbar.php';
             }
         }
@@ -136,21 +134,32 @@ class Mira_Snackbar_View
         return count($bot_snackbars) ? $bot_snackbars : [];
     }
 
-    private function get_snackbar_data($snackbar_ids)
+    private function get_snackbar_data($snackbar_ids, $vertical_position)
     {
         $snackbars = $this->gen_snackbar_obj($snackbar_ids);
+        $hor_positions = array_keys(get_field_object('field_619e78294f64e')['choices']);
+        $layout_types = array_keys(get_field_object('field_619e748e4f64b')['choices']);
 
-        return array_map(function ($horizontal_position) use ($snackbars) {
-            return $this->gen_snackbar_pos_obj($snackbars, $horizontal_position);
-        }, ['fullwidth', 'left', 'right']);
+        foreach ($hor_positions as $hor_position) {
+            foreach ($layout_types as $layout_type) {
+                $pairs[] = [$hor_position, $layout_type];
+            }
+        }
+
+        return array_map(function ($pair) use ($snackbars, $vertical_position) {
+            return $this->gen_snackbar_pos_obj($snackbars, $pair[0], $vertical_position, $pair[1]);
+        }, $pairs);
     }
 
-    private function gen_snackbar_pos_obj($snackbars, $horizontal_position)
+    private function gen_snackbar_pos_obj($snackbars, $horizontal_position, $vertical_position, $layout_type)
     {
+        if ($layout_type == 'static' || $layout_type == 'sticky') $horizontal_position = 'fullwidth';
         return [
             'horizontal_position' => $horizontal_position,
-            'snackbars' => array_filter($snackbars, function ($snackbar) use ($horizontal_position) {
-                return $snackbar['horizontal_location'] == $horizontal_position;
+            'vertical_position' => $vertical_position,
+            'layout_type' => $layout_type,
+            'snackbars' => array_filter($snackbars, function ($snackbar) use ($horizontal_position, $vertical_position) {
+                return $snackbar['horizontal_location'] == $horizontal_position &&  $snackbar['vertical_location'] == $vertical_position;
             }),
         ];
     }
@@ -166,7 +175,9 @@ class Mira_Snackbar_View
                 'horizontal_location' => get_field('horizontal_location', $snackbar_id),
                 'sticky_snackbar' => get_field('sticky_snackbar', $snackbar_id),
                 'show_extra_text' => get_field('show_extra_text', $snackbar_id),
-                'extra_text' => get_field('extra_text', $snackbar_id)
+                'extra_text' => get_field('extra_text', $snackbar_id),
+                'background_color' => get_field('background_color', $snackbar_id),
+                'text_color' => get_field('text_color', $snackbar_id)
             ];
         }, $snackbar_ids);
     }
