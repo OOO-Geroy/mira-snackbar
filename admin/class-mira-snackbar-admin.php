@@ -74,7 +74,6 @@ class Mira_Snackbar_Admin {
 		 */
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/mira-snackbar-admin.css', array(), $this->version, 'all' );
-
 	}
 
 	/**

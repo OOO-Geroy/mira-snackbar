@@ -81,6 +81,7 @@ class Mira_Snackbar {
 		$this->define_cpt();
 		$this->define_acf_groups();
 		$this->define_view();
+		$this->define_filters();
 
 	}
 
@@ -133,6 +134,12 @@ class Mira_Snackbar {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-mira-snackbar-view.php';
 
 		/**
+		 * The class filters for defining snackbar view
+		 * of the plugin.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-mira-snackbar-filters.php';
+
+		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-mira-snackbar-admin.php';
@@ -178,6 +185,14 @@ class Mira_Snackbar {
 	private function define_acf_groups() {
 		$plugin_model = new Mira_Snackbar_Acf_Model();
 		$this->loader->add_action( 'acf/init', $plugin_model, 'register_acf_groups' );
+	}
+
+	/**
+	 * Define filters
+	 */
+	private function define_filters() {
+		$plugin_model = new Mira_Snackbar_Filters();
+		$this->loader->add_action( 'init', $plugin_model, 'init_filter' );
 	}
 
 	/**

@@ -4,9 +4,13 @@
  */
 :root {
   --mira-snackbar-row-gap: 15px;
-  --mira-snackbar-x-gap: 30px;
-  --mira-snackbar-y-gap: 30px;
-  --mira-snackbar-width: 300px;
+  --mira-snackbar-x-gap: 20px;
+  --mira-snackbar-y-gap: 20px;
+  --mira-snackbar-width: 380px;
+  --mira-snackbar-close-btn-size: 20px;
+  --mira-snackbar-close-btn-x: 15px;
+  --mira-snackbar-close-btn-y: 15px;
+  --mira-snackbar-padding: 15px;
   --mira-snackbar-font-size: 1rem;
   --mira-snackbar-default-color: #fff;
   --mira-snackbar-default-background: #3d3d3d;
@@ -40,6 +44,10 @@
 .mira-snackbar-list--fixed.mira-snackbar-list--right {
   right: var(--mira-snackbar-x-gap);
   max-width: var(--mira-snackbar-width);
+}
+
+.mira-snackbar-list--fullwidth {
+  --mira-snackbar-close-btn-y: 10px;
 }
 
 .mira-snackbar-list--fixed.mira-snackbar-list--fullwidth {
@@ -76,12 +84,27 @@
   color: var(--mira-snackbar-default-color);
   background-color: var(--mira-snackbar-default-background);
   line-height: 1.2em;
-  padding: 15px;
+  padding: var(--mira-snackbar-padding)
+    calc(
+      var(--mira-snackbar-padding) + var(--mira-snackbar-close-btn-size) +
+        var(--mira-snackbar-padding) / 3
+    )
+    var(--mira-snackbar-padding) var(--mira-snackbar-padding);
+}
+
+.mira-snackbar-list--fixed .mira-snackbar {
+  box-shadow: 1px 1px 7px 1px #adadad;
 }
 
 .mira-snackbar-list--fullwidth .mira-snackbar {
   text-align: center;
-  padding: 10px 15px;
+  padding: calc(var(--mira-snackbar-padding) - var(--mira-snackbar-padding) / 3)
+    calc(
+      var(--mira-snackbar-padding) + var(--mira-snackbar-close-btn-size) +
+        var(--mira-snackbar-padding) / 3
+    )
+    calc(var(--mira-snackbar-padding) - var(--mira-snackbar-padding) / 3)
+    var(--mira-snackbar-padding);
 }
 
 .mira-snackbar__close {
@@ -91,25 +114,16 @@
   padding: 0;
   border: 0;
   position: absolute;
-  height: 20px;
-  width: 20px;
-  font-size: 20px;
+  height: var(--mira-snackbar-close-btn-size);
+  width: var(--mira-snackbar-close-btn-size);
+  right: var(--mira-snackbar-close-btn-x);
+  top: var(--mira-snackbar-close-btn-y);
+  font-size: var(--mira-snackbar-close-btn-size);
   transition: opacity 170ms;
 }
 
 .mira-snackbar__close:hover {
-  opacity: .8;
-}
-
-.mira-snackbar-list--fullwidth .mira-snackbar__close {
-  right: 15px;
-  top: 10px;
-}
-
-.mira-snackbar-list--left .mira-snackbar__close,
-.mira-snackbar-list--right .mira-snackbar__close {
-  right: 15px;
-  top: 15px;
+  opacity: 0.8;
 }
 
 .mira-snackbar .dashicons {

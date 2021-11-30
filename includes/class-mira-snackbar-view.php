@@ -158,8 +158,10 @@ class Mira_Snackbar_View
             'horizontal_position' => $horizontal_position,
             'vertical_position' => $vertical_position,
             'layout_type' => $layout_type,
-            'snackbars' => array_filter($snackbars, function ($snackbar) use ($horizontal_position, $vertical_position) {
-                return $snackbar['horizontal_location'] == $horizontal_position &&  $snackbar['vertical_location'] == $vertical_position;
+            'snackbars' => array_filter($snackbars, function ($snackbar) use ($horizontal_position, $vertical_position, $layout_type) {
+                return $snackbar['horizontal_location'] == $horizontal_position && 
+                $snackbar['vertical_location'] == $vertical_position && 
+                $snackbar['layout_type'] == $layout_type;
             }),
         ];
     }
