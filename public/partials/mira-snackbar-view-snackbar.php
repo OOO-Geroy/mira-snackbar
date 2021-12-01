@@ -33,12 +33,27 @@ $list_class = apply_filters('mira_snackbar_list_class', [
         ?>
             <div class="mira-snackbar" <? if ($snackbar['background_color'] || $snackbar['text_color']) { ?> style="<?= $el_style ?>" <? } ?>>
                 <div class="mira-snackbar__inner">
-                    <?= $snackbar['content'] ?>
+                    <div class="mira-snackbar__content">
+                        <?= $snackbar['content'] ?>
+                    </div>
+                    <? if ($snackbar['show_action_button']) { ?>
+                        <div class="mira-snackbar__actions">
+                            <? if ($snackbar['action_button']['type'] == 'expand') { ?>
+                                <div role="button" class="mira-snackbar__btn"><?= $snackbar['action_button']['text'] ?></div>
+                            <? } elseif ($snackbar['action_button']['type'] == 'link') {
+                                $link_url = $snackbar['action_button']['link']['url'];
+                                $link_title = $snackbar['action_button']['link']['title'];
+                                $link_target = $snackbar['action_button']['link']['target'] ? $snackbar['action_button']['link']['target'] : '_self';
+                            ?>
+                                <a class="mira-snackbar__btn mira-snackbar__btn--link" href="<?= esc_url($link_url); ?>" target="<?= esc_attr($link_target); ?>"><?= esc_html($link_title); ?></a>
+                            <? } ?>
+                        </div>
+                    <? } ?>
                 </div>
                 <div role="button" class="mira-snackbar__close" title="close">
                     <i class="dashicons dashicons-no-alt"></i>
                 </div>
-                <? if ($snackbar['show_extra_text']) { ?>
+                <? if ($snackbar['show_action_button'] && $snackbar['action_button']['action'] == 'expand') { ?>
                     <div class="mira-snackbar__extra">
                         <?= $snackbar['extra_text'] ?>
                     </div>

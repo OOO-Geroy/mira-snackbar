@@ -176,7 +176,8 @@ class Mira_Snackbar_View
                 'vertical_location' => get_field('vertical_location', $snackbar_id),
                 'horizontal_location' => get_field('horizontal_location', $snackbar_id),
                 'sticky_snackbar' => get_field('sticky_snackbar', $snackbar_id),
-                'show_extra_text' => get_field('show_extra_text', $snackbar_id),
+                'show_action_button' => get_field('show_action_button', $snackbar_id),
+                'action_button' => get_field('action_button', $snackbar_id),
                 'extra_text' => get_field('extra_text', $snackbar_id),
                 'background_color' => get_field('background_color', $snackbar_id),
                 'text_color' => get_field('text_color', $snackbar_id)

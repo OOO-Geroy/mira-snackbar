@@ -1,6 +1,7 @@
 (function () {
   "use strict";
   const els = document.querySelectorAll(".mira-snackbar__close");
+
   els.forEach((el) => {
     el.addEventListener("click", closeSnackbar, {
       once: true,
