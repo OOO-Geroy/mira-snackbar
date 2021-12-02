@@ -10,9 +10,15 @@
  */
 class Mira_Snackbar_View
 {
+    private $exclude = [];
 
     function __construct()
     {
+        $this->exclude = array_map(function ($key) {
+            return (int) str_replace('m_snackbar_', '', $key);
+        }, array_values(array_filter(array_keys($_COOKIE), function ($key) {
+            return str_contains($key, 'm_snackbar_');
+        })));
     }
 
     public function top_view()
@@ -44,6 +50,7 @@ class Mira_Snackbar_View
             'meta_key'       => 'priority',
             'orderby'        => 'meta_value',
             'order'          => 'ASC',
+            'exclude'        => $this->exclude,
             'meta_query'     => array(
                 'relation'   => 'AND',
                 array(
@@ -65,6 +72,7 @@ class Mira_Snackbar_View
                 'meta_key'       => 'priority',
                 'orderby'        => 'meta_value',
                 'order'          => 'ASC',
+                'exclude'        => $this->exclude,
                 'meta_query'     => array(
                     'relation'   => 'AND',
                     array(
@@ -94,6 +102,7 @@ class Mira_Snackbar_View
             'meta_key'       => 'priority',
             'orderby'        => 'meta_value',
             'order'          => 'ASC',
+            'exclude'        => $this->exclude,
             'meta_query'     => array(
                 'relation'   => 'AND',
                 array(
@@ -115,6 +124,7 @@ class Mira_Snackbar_View
                 'meta_key'       => 'priority',
                 'orderby'        => 'meta_value',
                 'order'          => 'ASC',
+                'exclude'        => $this->exclude,
                 'meta_query'     => array(
                     'relation'   => 'AND',
                     array(
@@ -171,16 +181,19 @@ class Mira_Snackbar_View
     {
         return array_map(function ($snackbar_id) {
             return [
+                'id' => $snackbar_id,
                 'content' => get_the_content(null, false, $snackbar_id),
                 'layout_type' => get_field('layout_type', $snackbar_id),
                 'vertical_location' => get_field('vertical_location', $snackbar_id),
                 'horizontal_location' => get_field('horizontal_location', $snackbar_id),
                 'sticky_snackbar' => get_field('sticky_snackbar', $snackbar_id),
                 'show_action_button' => get_field('show_action_button', $snackbar_id),
+                'hide_close_button' => get_field('hide_close_button', $snackbar_id),
                 'action_button' => get_field('action_button', $snackbar_id),
                 'extra_text' => get_field('extra_text', $snackbar_id),
                 'background_color' => get_field('background_color', $snackbar_id),
-                'text_color' => get_field('text_color', $snackbar_id)
+                'text_color' => get_field('text_color', $snackbar_id),
+                'show_after' => get_field('show_after', $snackbar_id),
             ];
         }, $snackbar_ids);
     }

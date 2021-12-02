@@ -18,7 +18,6 @@ $list_class = apply_filters('mira_snackbar_list_class', [
     $snackbar_data['horizontal_position'],
     $snackbar_data['layout_type']
 ]);
-
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
@@ -31,7 +30,7 @@ $list_class = apply_filters('mira_snackbar_list_class', [
                 'color' => $snackbar['text_color']
             ]);
         ?>
-            <div class="mira-snackbar" <? if ($snackbar['background_color'] || $snackbar['text_color']) { ?> style="<?= $el_style ?>" <? } ?>>
+            <div class="mira-snackbar" data-sid="<?= $snackbar['id'] ?>" data-show-after="<?= $snackbar['show_after'] ?>" <? if ($snackbar['background_color'] || $snackbar['text_color']) { ?> style="<?= $el_style ?>" <? } ?>>
                 <div class="mira-snackbar__inner">
                     <div class="mira-snackbar__content">
                         <?= $snackbar['content'] ?>
@@ -50,9 +49,11 @@ $list_class = apply_filters('mira_snackbar_list_class', [
                         </div>
                     <? } ?>
                 </div>
-                <div role="button" class="mira-snackbar__close" title="close">
-                    <i class="dashicons dashicons-no-alt"></i>
-                </div>
+                <? if (!$snackbar['hide_close_button'] && (!$snackbar['action_button'] || $snackbar['action_button']['type'] !== 'close')) { ?>
+                    <div role="button" class="mira-snackbar__close" title="close">
+                        <i class="dashicons dashicons-no-alt"></i>
+                    </div>
+                <? } ?>
                 <? if ($snackbar['show_action_button'] && $snackbar['action_button']['action'] == 'expand') { ?>
                     <div class="mira-snackbar__extra">
                         <?= $snackbar['extra_text'] ?>

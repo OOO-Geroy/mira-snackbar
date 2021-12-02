@@ -8,8 +8,6 @@
   --mira-snackbar-y-gap: 20px;
   --mira-snackbar-width: 380px;
   --mira-snackbar-close-btn-size: 20px;
-  --mira-snackbar-close-btn-x: 15px;
-  --mira-snackbar-close-btn-y: 15px;
   --mira-snackbar-padding: 15px;
   --mira-snackbar-font-size: 1rem;
   --mira-snackbar-default-color: #fff;
@@ -79,47 +77,73 @@
 }
 
 .mira-snackbar {
+  display: grid;
   position: relative;
   font-size: var(--mira-snackbar-font-size);
   color: var(--mira-snackbar-default-color);
   background-color: var(--mira-snackbar-default-background);
   line-height: 1.2em;
-  padding: var(--mira-snackbar-padding)
-    calc(
-      var(--mira-snackbar-padding) + var(--mira-snackbar-close-btn-size) +
-        var(--mira-snackbar-padding) / 3
-    )
-    var(--mira-snackbar-padding) var(--mira-snackbar-padding);
+  padding: var(--mira-snackbar-padding);
+  transition-duration: .15s;
+  transition-property: opacity,transform;
+  transition-timing-function: cubic-bezier(0,0,.2,1);
 }
+
+.mira-snackbar-list--fullwidth .mira-snackbar--closed {
+  opacity: 0;
+}
+
+.mira-snackbar-list--left .mira-snackbar__content .mira-snackbar--closed,
+.mira-snackbar-list--right .mira-snackbar__content .mira-snackbar--closed {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
 
 .mira-snackbar-list--fixed .mira-snackbar {
   box-shadow: 1px 1px 7px 1px #adadad;
 }
 
+.mira-snackbar-list--left .mira-snackbar,
+.mira-snackbar-list--right .mira-snackbar {
+  grid-template-columns: 1fr;
+}
+
 .mira-snackbar-list--fullwidth .mira-snackbar {
   text-align: center;
+  grid-template-columns: 1fr auto;
   padding: calc(var(--mira-snackbar-padding) - var(--mira-snackbar-padding) / 3)
-    calc(
-      var(--mira-snackbar-padding) + var(--mira-snackbar-close-btn-size) +
-        var(--mira-snackbar-padding) / 3
-    )
+    var(--mira-snackbar-padding)
     calc(var(--mira-snackbar-padding) - var(--mira-snackbar-padding) / 3)
     var(--mira-snackbar-padding);
 }
 
+.mira-snackbar-list--left .mira-snackbar__content,
+.mira-snackbar-list--right .mira-snackbar__content {
+  margin: -5px 0 0 0;
+  padding: 0 15px 10px 5px;
+}
+
+.mira-snackbar-list--fullwidth .mira-snackbar__inner:not(:only-child) .mira-snackbar__content {
+  padding: 0 0 0 20px;
+}
+
 .mira-snackbar__close {
+  justify-self: end;
+  order: -1;
   background-color: transparent;
   display: inline-block;
   cursor: pointer;
   padding: 0;
   border: 0;
-  position: absolute;
   height: var(--mira-snackbar-close-btn-size);
   width: var(--mira-snackbar-close-btn-size);
-  right: var(--mira-snackbar-close-btn-x);
-  top: var(--mira-snackbar-close-btn-y);
   font-size: var(--mira-snackbar-close-btn-size);
   transition: opacity 170ms;
+}
+
+.mira-snackbar-list--fullwidth .mira-snackbar__close {
+  order: 2;
 }
 
 .mira-snackbar__close:hover {
