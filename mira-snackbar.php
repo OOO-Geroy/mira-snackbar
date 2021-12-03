@@ -38,6 +38,12 @@ if ( ! defined( 'WPINC' ) ) {
 define( 'MIRA_SNACKBAR_VERSION', '1.0.0' );
 
 /**
+ * Polyfills
+ */
+require_once plugin_dir_path( __FILE__ ) . 'includes/polifils.php';
+
+ 
+/**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-mira-snackbar-activator.php
  */
@@ -63,6 +69,7 @@ register_deactivation_hook( __FILE__, 'deactivate_mira_snackbar' );
  * admin-specific hooks, and public-facing site hooks.
  */
 require plugin_dir_path( __FILE__ ) . 'includes/class-mira-snackbar.php';
+
 
 /**
  * Begins execution of the plugin.
