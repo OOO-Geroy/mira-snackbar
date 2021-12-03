@@ -21,9 +21,9 @@ class Mira_Snackbar_View
         })));
     }
 
-    public function top_view()
+    public function top_view($loaout_types = [])
     {
-        $snackbars_data = $this->get_snackbar_data($this->get_top_snackbars(), 'top');
+        $snackbars_data = $this->get_snackbar_data($this->get_snackbars('top', $loaout_types), 'top');
         foreach ($snackbars_data as $snackbar_data) {
             if (count($snackbar_data['snackbars'])) {
                 require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/mira-snackbar-view-snackbar.php';
@@ -31,9 +31,9 @@ class Mira_Snackbar_View
         }
     }
 
-    public function bot_view()
+    public function bot_view($loaout_types = [])
     {
-        $snackbars_data = $this->get_snackbar_data($this->get_bot_snackbars(), 'bot');
+        $snackbars_data = $this->get_snackbar_data($this->get_snackbars('bot', $loaout_types), 'bot');
         foreach ($snackbars_data as $snackbar_data) {
             if (count($snackbar_data['snackbars'])) {
                 require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/mira-snackbar-view-snackbar.php';
@@ -41,58 +41,16 @@ class Mira_Snackbar_View
         }
     }
 
-    private function get_top_snackbars()
+    private function get_snackbars($vertical_location, $loaout_types = [])
     {
-        $top_snackbars = get_posts(array(
-            'numberposts'    => 1,
-            'fields'         => 'ids',
-            'post_type'      => 'mira_snackbar',
-            'meta_key'       => 'priority',
-            'orderby'        => 'meta_value',
-            'order'          => 'ASC',
-            'exclude'        => $this->exclude,
-            'meta_query'     => array(
-                'relation'   => 'AND',
-                array(
-                    'key'    => 'vertical_location',
-                    'value'  => 'top',
-                ),
-                array(
-                    'key'    => 'sticky_snackbar',
-                    'value'  => '1',
-                ),
-            ),
-        ));
 
-        if (!count($top_snackbars)) {
-            $top_snackbars = get_posts(array(
-                'numberposts'    => 1,
-                'fields'         => 'ids',
-                'post_type'      => 'mira_snackbar',
-                'meta_key'       => 'priority',
-                'orderby'        => 'meta_value',
-                'order'          => 'ASC',
-                'exclude'        => $this->exclude,
-                'meta_query'     => array(
-                    'relation'   => 'AND',
-                    array(
-                        'key'    => 'vertical_location',
-                        'value'  => 'top',
-                        'compare' => '=',
-                    ),
-                    array(
-                        'key'    => 'sticky_snackbar',
-                        'value'  => '1',
-                        'compare' => '!=',
-                    ),
-                ),
-            ));
-        }
-        return count($top_snackbars) ? $top_snackbars : [];
-    }
-
-    private function get_bot_snackbars()
-    {
+        $extra_meta = array_map(function ($loaout_type) {
+            return [
+                'key'     => 'layout_type',
+                'value'   => $loaout_type,
+            ];
+        }, $loaout_types);
+        $extra_meta['relation'] = 'OR';
 
         $bot_snackbars = get_posts(array(
             'numberposts'    => 1,
@@ -106,12 +64,13 @@ class Mira_Snackbar_View
                 'relation'   => 'AND',
                 array(
                     'key'     => 'vertical_location',
-                    'value'   => 'bot',
+                    'value'   => $vertical_location,
                 ),
                 array(
                     'key'     => 'sticky_snackbar',
                     'value'   => '1',
                 ),
+                $extra_meta
             ),
         ));
 
@@ -128,7 +87,7 @@ class Mira_Snackbar_View
                     'relation'   => 'AND',
                     array(
                         'key'    => 'vertical_location',
-                        'value'  => 'bot',
+                        'value'  => $vertical_location,
                         'compare' => '=',
                     ),
                     array(
@@ -136,6 +95,7 @@ class Mira_Snackbar_View
                         'value'  => '1',
                         'compare' => '!=',
                     ),
+                    $extra_meta
                 ),
             ));
         }
@@ -168,9 +128,9 @@ class Mira_Snackbar_View
             'vertical_position' => $vertical_position,
             'layout_type' => $layout_type,
             'snackbars' => array_filter($snackbars, function ($snackbar) use ($horizontal_position, $vertical_position, $layout_type) {
-                return $snackbar['horizontal_location'] == $horizontal_position && 
-                $snackbar['vertical_location'] == $vertical_position && 
-                $snackbar['layout_type'] == $layout_type;
+                return $snackbar['horizontal_location'] == $horizontal_position &&
+                    $snackbar['vertical_location'] == $vertical_position &&
+                    $snackbar['layout_type'] == $layout_type;
             }),
         ];
     }
