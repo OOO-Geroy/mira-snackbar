@@ -88,7 +88,6 @@ class Mira_Snackbar_View
                 ),
             ));
         }
-
         return count($top_snackbars) ? $top_snackbars : [];
     }
 
@@ -155,7 +154,6 @@ class Mira_Snackbar_View
                 $pairs[] = [$hor_position, $layout_type];
             }
         }
-
         return array_map(function ($pair) use ($snackbars, $vertical_position) {
             return $this->gen_snackbar_pos_obj($snackbars, $pair[0], $vertical_position, $pair[1]);
         }, $pairs);
@@ -163,9 +161,10 @@ class Mira_Snackbar_View
 
     private function gen_snackbar_pos_obj($snackbars, $horizontal_position, $vertical_position, $layout_type)
     {
-        if ($layout_type == 'static' || $layout_type == 'sticky') $horizontal_position = 'fullwidth';
+        $real_hor_pos = $horizontal_position;
+        if ($layout_type == 'static' || $layout_type == 'sticky') $real_hor_pos = 'fullwidth';
         return [
-            'horizontal_position' => $horizontal_position,
+            'horizontal_position' => $real_hor_pos,
             'vertical_position' => $vertical_position,
             'layout_type' => $layout_type,
             'snackbars' => array_filter($snackbars, function ($snackbar) use ($horizontal_position, $vertical_position, $layout_type) {
