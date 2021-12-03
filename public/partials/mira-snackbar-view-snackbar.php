@@ -37,24 +37,16 @@ $list_class = apply_filters('mira_snackbar_list_class', [
                     </div>
                     <? if ($snackbar['show_action_button']) { ?>
                         <div class="mira-snackbar__actions">
-                            <? if ($snackbar['action_button']['type'] == 'expand') { ?>
-                                <div role="button" class="mira-snackbar__btn"><?= $snackbar['action_button']['text'] ?></div>
-                            <? } elseif ($snackbar['action_button']['type'] == 'link') {
-                                $link_url = $snackbar['action_button']['link']['url'];
-                                $link_title = $snackbar['action_button']['link']['title'];
-                                $link_target = $snackbar['action_button']['link']['target'] ? $snackbar['action_button']['link']['target'] : '_self';
-                            ?>
-                                <a class="mira-snackbar__btn mira-snackbar__btn--link" href="<?= esc_url($link_url); ?>" target="<?= esc_attr($link_target); ?>"><?= esc_html($link_title); ?></a>
-                            <? } ?>
+                            <?= apply_filters('mira_snackbar_btn', $snackbar['action_button']) ?>
                         </div>
                     <? } ?>
                 </div>
-                <? if (!$snackbar['hide_close_button'] && (!$snackbar['action_button'] || $snackbar['action_button']['type'] !== 'close')) { ?>
+                <? if (!$snackbar['hide_close_button'] && (!$snackbar['action_button'] || $snackbar['action_button']['action'] !== 'close')) { ?>
                     <div role="button" class="mira-snackbar__close" title="close">
                         <i class="dashicons dashicons-no-alt"></i>
                     </div>
                 <? } ?>
-                <? if ($snackbar['show_action_button'] && $snackbar['action_button']['action'] == 'expand') { ?>
+                <? if (false && $snackbar['show_action_button'] && $snackbar['action_button']['action'] == 'expand') { ?>
                     <div class="mira-snackbar__extra">
                         <?= $snackbar['extra_text'] ?>
                     </div>
