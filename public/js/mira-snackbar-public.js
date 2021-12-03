@@ -3,7 +3,9 @@
   const els = document.querySelectorAll(".mira-snackbar");
 
   els.forEach((el) => {
-    const closeBtns = document.querySelectorAll(".mira-snackbar__close");
+    const closeBtns = document.querySelectorAll(
+      ".mira-snackbar__close, .mira-snackbar__btn--close"
+    );
     const data = {
       id: el.dataset.sid,
       expired: el.dataset.showAfter,
@@ -24,7 +26,7 @@
 
   function setSnackbarCookie(data) {
     if (checkCookie(`m_snackbar_${data.id}`)) return;
-    setCookie(`m_snackbar_${data.id}`, 'showed', data.expired);
+    setCookie(`m_snackbar_${data.id}`, "showed", data.expired);
   }
 
   function getCookie(cname) {
