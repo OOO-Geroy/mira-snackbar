@@ -13,24 +13,27 @@
  * @var $snackbar_data
  */
 
-$list_class = apply_filters('mira_snackbar_list_class', [
+$list_class = apply_filters('mira_snackbar_el_class', [
     $snackbar_data['vertical_position'],
     $snackbar_data['horizontal_position'],
     $snackbar_data['layout_type']
-]);
+], 'mira-snackbar-list--');
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
 
 <? if (count($snackbar_data['snackbars'])) { ?>
-    <div class="mira-snackbar-list <?= $list_class ?>">
+    <div class="mira-snackbar-list<?= $list_class ? ' ' . $list_class : '' ?>">
         <? foreach ($snackbar_data['snackbars'] as $snackbar) {
             $el_style = apply_filters('mira_snackbar_el_style', [
                 'background-color' => $snackbar['background_color'],
                 'color' => $snackbar['text_color']
             ]);
+            $el_class = apply_filters('mira_snackbar_el_class', [
+                'align-' . $snackbar['align_content']
+            ], 'mira-snackbar--');
         ?>
-            <div class="mira-snackbar" data-sid="<?= $snackbar['id'] ?>" data-show-after="<?= $snackbar['show_after'] ?>" <? if ($snackbar['background_color'] || $snackbar['text_color']) { ?> style="<?= $el_style ?>" <? } ?>>
+            <div class="mira-snackbar<?= $el_class ? ' ' . $el_class : '' ?>" data-sid="<?= $snackbar['id'] ?>" data-show-after="<?= $snackbar['show_after'] ?>" <? if ($snackbar['background_color'] || $snackbar['text_color']) { ?> style="<?= $el_style ?>" <? } ?>>
                 <div class="mira-snackbar__inner">
                     <div class="mira-snackbar__content">
                         <?= $snackbar['content'] ?>

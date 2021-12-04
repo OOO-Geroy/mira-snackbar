@@ -165,6 +165,38 @@ class Mira_Snackbar_Acf_Model
 						'return_format' => 'value',
 					),
 					array(
+						'key' => 'field_61ab47429f08e',
+						'label' => 'Align content',
+						'name' => 'align_content',
+						'type' => 'button_group',
+						'instructions' => '',
+						'required' => 0,
+						'conditional_logic' => array(
+							array(
+								array(
+									'field' => 'field_619e78294f64e',
+									'operator' => '==',
+									'value' => 'fullwidth',
+								),
+							),
+						),
+						'wrapper' => array(
+							'width' => '',
+							'class' => '',
+							'id' => '',
+						),
+						'choices' => array(
+							'left' => 'Left',
+							'center' => 'Center',
+							'right' => 'Right',
+							'fullwidth' => 'Fullwidth',
+						),
+						'allow_null' => 0,
+						'default_value' => '',
+						'layout' => 'horizontal',
+						'return_format' => 'value',
+					),
+					array(
 						'key' => 'field_619e7ab376cac',
 						'label' => 'Sticky snackbar',
 						'name' => 'sticky_snackbar',
@@ -358,9 +390,9 @@ class Mira_Snackbar_Acf_Model
 							),
 							array(
 								'key' => 'field_61a9ef1e3bbe7',
-								'label' => 'Text Color',
+								'label' => 'Text color',
 								'name' => 'text_color',
-								'type' => 'color_picker',
+								'type' => 'text',
 								'instructions' => '',
 								'required' => 0,
 								'conditional_logic' => 0,
