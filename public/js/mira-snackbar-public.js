@@ -6,15 +6,23 @@
     const closeBtns = document.querySelectorAll(
       ".mira-snackbar__close, .mira-snackbar__btn--close"
     );
+    const links = document.querySelectorAll(".mira-snackbar__btn--link");
     const data = {
       id: el.dataset.sid,
       expired: el.dataset.showAfter,
     };
+
     closeBtns.forEach((btn) => {
       btn.addEventListener("click", (e) => closeSnackbar(e, data), {
         once: true,
       });
     });
+
+    links.forEach((link) =>
+      link.addEventListener("click", () => setSnackbarCookie(data), {
+        once: true,
+      })
+    );
   });
 
   function closeSnackbar(e, data) {
@@ -25,8 +33,8 @@
   }
 
   function setSnackbarCookie(data) {
-    if (checkCookie(`m_snackbar_${data.id}`)) return;
-    setCookie(`m_snackbar_${data.id}`, "showed", data.expired);
+    if (checkCookie(`m-snackbar-${data.id}`)) return;
+    setCookie(`m-snackbar-${data.id}`, "showed", data.expired);
   }
 
   function getCookie(cname) {

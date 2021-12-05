@@ -15,9 +15,9 @@ class Mira_Snackbar_View
     function __construct()
     {
         $this->exclude = array_map(function ($key) {
-            return (int) str_replace('m_snackbar_', '', $key);
+            return (int) str_replace('m-snackbar-', '', $key);
         }, array_values(array_filter(array_keys($_COOKIE), function ($key) {
-            return str_contains($key, 'm_snackbar_');
+            return str_contains($key, 'm-snackbar-');
         })));
     }
 
