@@ -62,10 +62,10 @@ class Mira_Snackbar_Acf_Model
 					),
 					array(
 						'key' => 'field_61a90d1a42410',
-						'label' => 'Show after',
+						'label' => 'The interval between shows',
 						'name' => 'show_after',
 						'type' => 'number',
-						'instructions' => '',
+						'instructions' => 'How long after closing the snackbar will not be shown again.',
 						'required' => 0,
 						'conditional_logic' => 0,
 						'wrapper' => array(
