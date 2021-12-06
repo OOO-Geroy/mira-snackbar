@@ -22,9 +22,12 @@ $list_class = apply_filters('mira_snackbar_el_class', [
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
 
-<? if (count($snackbar_data['snackbars'])) { ?>
+<? if (count($snackbar_data['snackbars'])) { 
+    
+    ?>
     <div class="mira-snackbar-list<?= $list_class ? ' ' . $list_class : '' ?>">
         <? foreach ($snackbar_data['snackbars'] as $snackbar) {
+     
             $el_style = apply_filters('mira_snackbar_el_style', [
                 'background-color' => $snackbar['background_color'],
                 'color' => $snackbar['text_color']

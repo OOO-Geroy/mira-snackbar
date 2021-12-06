@@ -21,27 +21,27 @@ class Mira_Snackbar_View
         })));
     }
 
-    public function top_view($loaout_types = [])
+    public function top_view($layout_types = [])
     {
-        $snackbars_data = $this->get_snackbar_data($this->get_snackbars('top', $loaout_types), 'top');
+        $snackbars_data = $this->get_snackbar_data($this->get_snackbars('top', $layout_types), 'top');
         foreach ($snackbars_data as $snackbar_data) {
             if (count($snackbar_data['snackbars'])) {
-                require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/mira-snackbar-view-snackbar.php';
+                require plugin_dir_path(dirname(__FILE__)) . 'public/partials/mira-snackbar-view-snackbar.php';
             }
         }
     }
 
-    public function bot_view($loaout_types = [])
+    public function bot_view($layout_types = [])
     {
-        $snackbars_data = $this->get_snackbar_data($this->get_snackbars('bot', $loaout_types), 'bot');
+        $snackbars_data = $this->get_snackbar_data($this->get_snackbars('bot', $layout_types), 'bot');
         foreach ($snackbars_data as $snackbar_data) {
             if (count($snackbar_data['snackbars'])) {
-                require_once plugin_dir_path(dirname(__FILE__)) . 'public/partials/mira-snackbar-view-snackbar.php';
+                require plugin_dir_path(dirname(__FILE__)) . 'public/partials/mira-snackbar-view-snackbar.php';
             }
         }
     }
 
-    private function get_snackbars($vertical_location, $loaout_types = [])
+    private function get_snackbars($vertical_location, $layout_types = [])
     {
 
         $extra_meta = array_map(function ($loaout_type) {
@@ -49,7 +49,7 @@ class Mira_Snackbar_View
                 'key'     => 'layout_type',
                 'value'   => $loaout_type,
             ];
-        }, $loaout_types);
+        }, $layout_types);
         $extra_meta['relation'] = 'OR';
 
         $bot_snackbars = get_posts(array(

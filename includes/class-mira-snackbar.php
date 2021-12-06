@@ -230,7 +230,7 @@ class Mira_Snackbar {
 	private function define_view() {
 		$view_plugin = new Mira_Snackbar_View();
 
-		$this->loader->add_action( 'mira_snackbar_sticky_top', $view_plugin, 'top_view', null, 1 );
+		$this->loader->add_action( 'mira_snackbar_top', $view_plugin, 'top_view', null, 1 );
 		$this->loader->add_action( 'mira_snackbar_bot', $view_plugin, 'bot_view', null, 1 );
 	}
 
