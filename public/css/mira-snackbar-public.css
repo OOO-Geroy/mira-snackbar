@@ -14,6 +14,8 @@
   --mira-snackbar-default-background: #3d3d3d;
   --mira-snackbar-btn-default-color: #fff;
   --mira-snackbar-btn-default-background: rgba(255, 255, 255, 0.2);
+  --mira-snackbar-popup-color: #111111;
+  --mira-snackbar-popup-close-btn-color: #333;
 }
 
 .mira-snackbar-list {
@@ -202,6 +204,7 @@
 }
 
 .mira-snackbar-list--fullwidth
+  .mira-snackbar--align-center
   .mira-snackbar__inner:not(:only-child)
   .mira-snackbar__content {
   padding: 0 0 0 20px;
@@ -247,13 +250,17 @@
 @media (max-width: 767px) {
   .mira-snackbar-list--fullwidth .mira-snackbar__actions {
     text-align: right;
+  }
+  .mira-snackbar-list--fullwidth
+    .mira-snackbar__inner:not(:only-child)
+    .mira-snackbar__actions {
     margin-right: calc(-1 * var(--mira-snackbar-close-btn-size));
   }
 }
 
-
 .mira-snackbar__btn {
   display: inline-block;
+  cursor: pointer;
   background-color: var(--mira-snackbar-btn-default-background);
   color: var(--mira-snackbar-btn-default-color);
   font-size: 1rem;
@@ -287,4 +294,81 @@
   line-height: 1;
   font-weight: 400;
   font-style: normal;
+}
+
+/*
+*  popup
+*/
+.mira-snackbar-popup {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0 0 0 / 40%);
+  z-index: 999;
+  top: 0;
+  left: 0;
+  overflow: auto;
+  padding: 60px 15px;
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 600ms;
+  box-sizing: border-box;
+  color: var(--mira-snackbar-popup-color);
+}
+
+.mira-snackbar-popup--showed {
+  opacity: 1;
+}
+
+.mira-snackbar-popup__inner {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  background-color: white;
+  padding: 40px 30px 50px;
+  margin: auto;
+}
+
+@media (max-width: 560px) {
+  .mira-snackbar-popup__inner {
+    padding: 40px 20px;
+  }
+}
+
+.mira-snackbar-popup__close {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  width: 26px;
+  height: 26px;
+  opacity: 0.3;
+  padding: 0;
+  background: transparent;
+  margin: 0;
+  cursor: pointer;
+}
+
+.mira-snackbar-popup__close:before,
+.mira-snackbar-popup__close:after {
+  position: absolute;
+  left: 12px;
+  top: 0;
+  content: " ";
+  height: 24px;
+  width: 2px;
+  background-color: #333;
+}
+
+.mira-snackbar-popup__close:before {
+  transform: rotate(45deg);
+}
+
+.mira-snackbar-popup__close:after {
+  transform: rotate(-45deg);
+}
+
+.mira-snackbar-popup__close:hover {
+  opacity: 1;
 }

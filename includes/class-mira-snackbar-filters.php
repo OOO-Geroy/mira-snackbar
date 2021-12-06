@@ -46,8 +46,8 @@ class Mira_Snackbar_Filters
             'color' => $data['text_color']
         ]);
 
-        if ($data['action'] == 'expand') {
-            $btn = '<div role="button" class="mira-snackbar__btn"' . ($style ? ' style="' . $style . '"' : '') . '>' . $data['text'] . '</div>';
+        if ($data['action'] == 'popup') {
+            $btn = '<div role="button" class="mira-snackbar__btn mira-snackbar__btn--popup-trigger"' . ($style ? ' style="' . $style . '"' : '') . '>' . $data['text'] . '</div>';
         } elseif ($data['action'] == 'link') {
             $link_url = $data['link']['url'];
             $link_title = $data['link']['title'];

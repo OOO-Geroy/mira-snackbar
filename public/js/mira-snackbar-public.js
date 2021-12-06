@@ -7,6 +7,10 @@
       ".mira-snackbar__close, .mira-snackbar__btn--close"
     );
     const links = document.querySelectorAll(".mira-snackbar__btn--link");
+    const popupTriggers = document.querySelectorAll(
+      ".mira-snackbar__btn--popup-trigger"
+    );
+
     const data = {
       id: el.dataset.sid,
       expired: el.dataset.showAfter,
@@ -23,10 +27,12 @@
         once: true,
       })
     );
+
+    popupTriggers.forEach((el) => initPopup(el));
   });
 
   function closeSnackbar(e, data) {
-    const container = e.target.closest(".mira-snackbar");
+    const container = e.target.closest(".mira-snackbar-container");
     container.classList.add("mira-snackbar--closed");
     container.addEventListener("transitionend", () => container.remove());
     setSnackbarCookie(data);
@@ -67,5 +73,39 @@
     d.setTime(d.getTime() + exsec * 1000);
     let expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+
+  function initPopup(triggerBtn) {
+    const popupEl = triggerBtn
+      .closest(".mira-snackbar-container")
+      .querySelector(".mira-snackbar-popup");
+    const closeBtn = popupEl.querySelector(".mira-snackbar-popup__close");
+
+    triggerBtn.addEventListener("click", () => openPopup(popupEl));
+    closeBtn.addEventListener("click", (e) => closePopup(e, popupEl));
+    popupEl.addEventListener("click", (e) => closePopup(e, popupEl));
+  }
+
+  function openPopup(popupEl) {
+    popupEl.style.display = "";
+    setTimeout(() => {
+      popupEl.classList.add("mira-snackbar-popup--showed");
+    }, 17);
+  }
+
+  function closePopup(e, popupEl) {
+    if (
+      !e.target.classList.contains("mira-snackbar-popup__close") &&
+      e.target != popupEl
+    )
+      return;
+    popupEl.classList.remove("mira-snackbar-popup--showed");
+    popupEl.addEventListener(
+      "transitionend",
+      () => (popupEl.style.display = "none"),
+      {
+        once: true,
+      }
+    );
   }
 })();
