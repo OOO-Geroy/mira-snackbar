@@ -238,7 +238,6 @@
 
 .mira-snackbar__close:hover {
   opacity: 0.8;
-  color: currentColor;
 }
 
 .mira-snackbar-list--left .mira-snackbar__actions,
@@ -277,6 +276,7 @@
 .mira-snackbar__btn:hover {
   text-decoration: none;
   opacity: 0.85;
+  color: currentColor;
 }
 
 .mira-snackbar-list--fullwidth .mira-snackbar__btn {
