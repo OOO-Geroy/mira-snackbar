@@ -238,6 +238,7 @@
 
 .mira-snackbar__close:hover {
   opacity: 0.8;
+  color: currentColor;
 }
 
 .mira-snackbar-list--left .mira-snackbar__actions,
