@@ -155,6 +155,7 @@ class Mira_Snackbar_View
                 'background_color' => get_field('background_color', $snackbar_id),
                 'text_color' => get_field('text_color', $snackbar_id),
                 'show_after' => get_field('show_after', $snackbar_id),
+                'show_delay' => get_field('show_delay', $snackbar_id) ? (int) get_field('show_delay', $snackbar_id) : 0,
             ];
         }, $snackbar_ids);
     }

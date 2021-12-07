@@ -20,9 +20,11 @@ class Mira_Snackbar_Filters
 
     public function get_list_class($params, $prefix)
     {
-        return implode(' ', array_map(function ($param) use($prefix) {
+        return implode(' ', array_map(function ($param) use ($prefix) {
             return $prefix . $param;
-        }, $params));
+        }, array_filter($params, function ($param) {
+            return !!$param;
+        })));
     }
 
     public function get_el_style($params)
