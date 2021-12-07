@@ -40,7 +40,7 @@ $list_class = apply_filters('mira_snackbar_el_class', [
                 <div class="mira-snackbar<?= $el_class ? ' ' . $el_class : '' ?>" data-sid="<?= $snackbar['id'] ?>" data-show-after="<?= $snackbar['show_after'] ?>" <? if ($snackbar['background_color'] || $snackbar['text_color']) { ?> style="<?= $el_style ?>" <? } ?>>
                     <div class="mira-snackbar__inner">
                         <div class="mira-snackbar__content">
-                            <?= $snackbar['content'] ?>
+                            <?= apply_filters('the_content', $snackbar['content']) ?>
                         </div>
                         <? if ($snackbar['show_action_button']) { ?>
                             <div class="mira-snackbar__actions">
@@ -62,7 +62,7 @@ $list_class = apply_filters('mira_snackbar_el_class', [
                     <div class="mira-snackbar-popup" style="display: none">
                         <div class="mira-snackbar-popup__inner" <? if ($inner_popup_style) { ?> style="<?= $inner_popup_style ?>" <? } ?>>
                             <div class="mira-snackbar-popup__content">
-                                <?= $snackbar['popup_text'] ?>
+                                <?= apply_filters('the_content', $snackbar['popup_text']) ?>
                             </div>
                             <div role="button" class="mira-snackbar-popup__close" title="close">
                             </div>
