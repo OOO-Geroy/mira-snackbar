@@ -35,7 +35,8 @@ $list_class = apply_filters('mira_snackbar_el_class', [
                     $q->the_post();
                     $el_style = apply_filters('mira_snackbar_el_style', [
                         'background-color' => $snackbar['background_color'],
-                        'color' => $snackbar['text_color']
+                        'color' => $snackbar['text_color'],
+                        'display' => $snackbar['show_delay'] ? 'none' : ''
                     ]);
                     $el_class = apply_filters('mira_snackbar_el_class', [
                         'align-' . $snackbar['align_content'],
@@ -43,7 +44,7 @@ $list_class = apply_filters('mira_snackbar_el_class', [
                     ], 'mira-snackbar--');
         ?>
                     <div class="mira-snackbar-container">
-                        <div class="mira-snackbar<?= $el_class ? ' ' . $el_class : '' ?>" data-sid="<?= $snackbar['id'] ?>" data-delay="<?= $snackbar['show_delay'] ?>" data-show-after="<?= $snackbar['show_after'] ?>" <? if ($snackbar['background_color'] || $snackbar['text_color']) { ?> style="<?= $el_style ?>" <? } ?>>
+                        <div class="mira-snackbar<?= $el_class ? ' ' . $el_class : '' ?>" data-sid="<?= $snackbar['id'] ?>" data-delay="<?= $snackbar['show_delay'] ?>" data-show-after="<?= $snackbar['show_after'] ?>" <? if ($el_style) { ?> style="<?= $el_style ?>" <? } ?>>
                             <div class="mira-snackbar__inner">
                                 <div class="mira-snackbar__content">
                                     <?= do_shortcode($snackbar['content']) ?>

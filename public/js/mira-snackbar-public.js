@@ -29,6 +29,9 @@
     );
 
     popupTriggers.forEach((el) => initPopup(el));
+
+    if (el.dataset.delay)
+      setTimeout(() => showDelayedSnackbar(el), +el.dataset.delay * 1000);
   });
 
   function closeSnackbar(e, data) {
@@ -107,5 +110,9 @@
         once: true,
       }
     );
+  }
+
+  function showDelayedSnackbar(el) {
+    el.style.display = ''
   }
 })();

@@ -36,7 +36,8 @@ class Mira_Snackbar_Filters
         $output = "";
 
         foreach ($params as $key => $value) {
-            $output .= sprintf("%s: %s;", $key, $value);
+            if ($value)
+                $output .= sprintf("%s: %s;", $key, $value);
         }
         return $output;
     }
