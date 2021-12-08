@@ -39,8 +39,7 @@ $list_class = apply_filters('mira_snackbar_el_class', [
                         'color' => $snackbar['text_color']
                     ]);
                     $el_class = apply_filters('mira_snackbar_el_class', [
-                        'align-' . $snackbar['align_content'],
-                        $snackbar['show_delay'] ? 'delayed' : ''
+                        'align-' . $snackbar['align_content']
                     ], 'mira-snackbar--');
         ?>
                     <div class="mira-snackbar-container">
