@@ -46,7 +46,7 @@ $list_class = apply_filters('mira_snackbar_el_class', [
                         <div class="mira-snackbar<?= $el_class ? ' ' . $el_class : '' ?>" data-sid="<?= $snackbar['id'] ?>" data-show-after="<?= $snackbar['show_after'] ?>" <? if ($snackbar['background_color'] || $snackbar['text_color']) { ?> style="<?= $el_style ?>" <? } ?>>
                             <div class="mira-snackbar__inner">
                                 <div class="mira-snackbar__content">
-                                    <? the_content() ?>
+                                    <?= do_shortcode($snackbar['content']) ?>
                                 </div>
                                 <? if ($snackbar['show_action_button']) { ?>
                                     <div class="mira-snackbar__actions">
