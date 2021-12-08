@@ -76,9 +76,9 @@ $list_class = apply_filters('mira_snackbar_el_class', [
                             </div>
                         <? } ?>
                     </div>
-        <?
-                    wp_reset_postdata();
+        <?   
                 }
+                wp_reset_postdata();
             }
         } ?>
     </div>
