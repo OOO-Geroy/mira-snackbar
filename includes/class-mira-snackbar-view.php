@@ -11,6 +11,8 @@
 class Mira_Snackbar_View
 {
     private $exclude = [];
+    private $showed_top = false;
+    private $showed_bot = false;
 
     function __construct()
     {
@@ -43,6 +45,7 @@ class Mira_Snackbar_View
 
     private function get_snackbars($vertical_location, $layout_types = [])
     {
+        if ($this->{'showed_' . $vertical_location}) return [];
 
         $extra_meta = array_map(function ($loaout_type) {
             return [
@@ -52,7 +55,7 @@ class Mira_Snackbar_View
         }, $layout_types);
         $extra_meta['relation'] = 'OR';
 
-        $bot_snackbars = get_posts(array(
+        $snackbars = get_posts(array(
             'numberposts'    => 1,
             'fields'         => 'ids',
             'post_type'      => 'mira_snackbar',
@@ -70,12 +73,21 @@ class Mira_Snackbar_View
                     'key'     => 'sticky_snackbar',
                     'value'   => '1',
                 ),
-                $extra_meta
             ),
         ));
 
-        if (!count($bot_snackbars)) {
-            $bot_snackbars = get_posts(array(
+        if (
+            count($snackbars) &&
+            count($layout_types) &&
+            in_array(get_field('layout_type', $snackbars[0]), $layout_types)
+        ) {
+            $this->{'showed_' . $vertical_location} = true;
+            return $snackbars;
+        }
+
+
+        if (!count($snackbars)) {
+            $snackbars = get_posts(array(
                 'numberposts'    => 1,
                 'fields'         => 'ids',
                 'post_type'      => 'mira_snackbar',
@@ -99,8 +111,8 @@ class Mira_Snackbar_View
                 ),
             ));
         }
-
-        return count($bot_snackbars) ? $bot_snackbars : [];
+        if (count($snackbars)) $this->{'showed_' . $vertical_location} = true;
+        return $snackbars;
     }
 
     private function get_snackbar_data($snackbar_ids, $vertical_position)
@@ -114,9 +126,11 @@ class Mira_Snackbar_View
                 $pairs[] = [$hor_position, $layout_type];
             }
         }
-        return array_map(function ($pair) use ($snackbars, $vertical_position) {
+        return array_filter(array_map(function ($pair) use ($snackbars, $vertical_position) {
             return $this->gen_snackbar_pos_obj($snackbars, $pair[0], $vertical_position, $pair[1]);
-        }, $pairs);
+        }, $pairs), function ($snacbar_data) {
+            return count($snacbar_data['snackbars']);
+        });
     }
 
     private function gen_snackbar_pos_obj($snackbars, $horizontal_position, $vertical_position, $layout_type)
