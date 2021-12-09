@@ -3,11 +3,11 @@
   const els = document.querySelectorAll(".mira-snackbar");
 
   els.forEach((el) => {
-    const closeBtns = document.querySelectorAll(
+    const closeBtns = el.querySelectorAll(
       ".mira-snackbar__close, .mira-snackbar__btn--close"
     );
-    const links = document.querySelectorAll(".mira-snackbar__btn--link");
-    const popupTriggers = document.querySelectorAll(
+    const links = el.querySelectorAll(".mira-snackbar__btn--link");
+    const popupTriggers = el.querySelectorAll(
       ".mira-snackbar__btn--popup-trigger"
     );
 
@@ -36,8 +36,9 @@
 
   function closeSnackbar(e, data) {
     const container = e.target.closest(".mira-snackbar-container");
-    container.classList.add("mira-snackbar--closed");
-    container.addEventListener("transitionend", () => container.remove());
+    const el = e.target.closest(".mira-snackbar");
+    el.classList.add("mira-snackbar--closed");
+    el.addEventListener("transitionend", () => container.remove());
     setSnackbarCookie(data);
   }
 
