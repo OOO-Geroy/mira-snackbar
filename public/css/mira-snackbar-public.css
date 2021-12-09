@@ -127,6 +127,25 @@
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
+.mira-snackbar--delayed {
+  opacity: 0;
+  transition-duration: 0.6s;
+}
+
+.mira-snackbar-list--top .mira-snackbar--delayed {
+  transform: translateY(-100px);
+}
+
+.mira-snackbar-list--bot .mira-snackbar--delayed {
+  transform: translateY(100px);
+}
+
+.mira-snackbar-list--top .mira-snackbar--delayed-showing,
+.mira-snackbar-list--bot .mira-snackbar--delayed-showing {
+  transform: translateY(0);
+  opacity: 1;
+}
+
 .mira-snackbar-list--fullwidth .mira-snackbar--closed {
   opacity: 0;
 }

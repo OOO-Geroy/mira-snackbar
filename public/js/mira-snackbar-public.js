@@ -113,6 +113,19 @@
   }
 
   function showDelayedSnackbar(el) {
-    el.style.display = ''
+    el.style.display = "";
+    setTimeout(() => {
+      el.classList.add("mira-snackbar--delayed-showing");
+      el.addEventListener(
+        "transitionend",
+        () => (
+          el.classList.remove("mira-snackbar--delayed"),
+          el.classList.remove("mira-snackbar--delayed-showing")
+        ),
+        {
+          once: true,
+        }
+      );
+    }, 16);
   }
 })();
