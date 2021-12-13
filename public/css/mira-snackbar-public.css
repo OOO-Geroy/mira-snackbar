@@ -239,6 +239,7 @@
 }
 
 .mira-snackbar__close {
+  position: relative;
   justify-self: end;
   order: -1;
   background-color: transparent;
@@ -248,8 +249,31 @@
   border: 0;
   height: var(--mira-snackbar-close-btn-size);
   width: var(--mira-snackbar-close-btn-size);
-  font-size: var(--mira-snackbar-close-btn-size);
   transition: opacity 170ms;
+}
+
+.mira-snackbar__close:before,
+.mira-snackbar__close:after {
+  content: " ";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: 50% 50%;
+  height: calc(var(--mira-snackbar-close-btn-size) - 4px);
+  width: 2px;
+  background-color: currentColor;
+}
+
+.mira-snackbar__close:before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.mira-snackbar__close:after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.mira-snackbar__close:hover {
+  opacity: 1;
 }
 
 .mira-snackbar-list--fullwidth .mira-snackbar__close {
@@ -307,14 +331,6 @@
   .mira-snackbar-list--fullwidth .mira-snackbar__btn {
     margin-left: 0;
   }
-}
-
-.mira-snackbar .dashicons {
-  font-family: dashicons;
-  display: inline-block;
-  line-height: 1;
-  font-weight: 400;
-  font-style: normal;
 }
 
 /*

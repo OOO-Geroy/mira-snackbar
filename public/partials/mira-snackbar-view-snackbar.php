@@ -56,9 +56,7 @@ $list_class = apply_filters('mira_snackbar_el_class', [
                                 <? } ?>
                             </div>
                             <? if (!$snackbar['hide_close_button'] && (!$snackbar['action_button'] || $snackbar['action_button']['action'] !== 'close')) { ?>
-                                <div role="button" class="mira-snackbar__close" title="close">
-                                    <i class="dashicons dashicons-no-alt"></i>
-                                </div>
+                                <div role="button" class="mira-snackbar__close" title="close"></div>
                             <? } ?>
                         </div>
                         <? if ($snackbar['show_action_button'] && $snackbar['action_button']['action'] == 'popup') {
