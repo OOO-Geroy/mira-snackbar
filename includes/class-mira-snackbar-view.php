@@ -26,6 +26,9 @@ class Mira_Snackbar_View
     public function top_view($layout_types = [])
     {
         $snackbars_data = $this->get_snackbar_data($this->get_snackbars('top', $layout_types), 'top');
+        echo '<!--';
+        var_dump($snackbars_data);
+        echo '-->';
         foreach ($snackbars_data as $snackbar_data) {
             if (count($snackbar_data['snackbars'])) {
                 require plugin_dir_path(dirname(__FILE__)) . 'public/partials/mira-snackbar-view-snackbar.php';
