@@ -26,9 +26,6 @@ class Mira_Snackbar_View
     public function top_view($layout_types = [])
     {
         $snackbars_data = $this->get_snackbar_data($this->get_snackbars('top', $layout_types), 'top');
-        echo '<!--';
-        var_dump($snackbars_data);
-        echo '-->';
         foreach ($snackbars_data as $snackbar_data) {
             if (count($snackbar_data['snackbars'])) {
                 require plugin_dir_path(dirname(__FILE__)) . 'public/partials/mira-snackbar-view-snackbar.php';
@@ -156,12 +153,15 @@ class Mira_Snackbar_View
     private function gen_snackbar_obj($snackbar_ids)
     {
         return array_map(function ($snackbar_id) {
+            $layout_type = get_field('layout_type', $snackbar_id);
+            $real_hor_pos = get_field('horizontal_location', $snackbar_id);
+            if ($layout_type == 'static' || $layout_type == 'sticky') $real_hor_pos = 'fullwidth';    
             return [
                 'id' => $snackbar_id,
                 'content' => get_the_content(null, false, $snackbar_id),
-                'layout_type' => get_field('layout_type', $snackbar_id),
+                'layout_type' => $layout_type,
                 'vertical_location' => get_field('vertical_location', $snackbar_id),
-                'horizontal_location' => get_field('horizontal_location', $snackbar_id),
+                'horizontal_location' => $real_hor_pos,
                 'align_content' => get_field('align_content', $snackbar_id),
                 'sticky_snackbar' => get_field('sticky_snackbar', $snackbar_id),
                 'show_action_button' => get_field('show_action_button', $snackbar_id),
