@@ -200,6 +200,13 @@ class Mira_Snackbar_Acf_Model
 									'value' => 'fullwidth',
 								),
 							),
+							array(
+								array(
+									'field' => 'field_619e748e4f64b',
+									'operator' => '==',
+									'value' => 'sticky',
+								),
+							),
 						),
 						'wrapper' => array(
 							'width' => '',
