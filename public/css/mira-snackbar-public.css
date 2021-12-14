@@ -208,6 +208,16 @@
   }
 }
 
+.mira-snackbar__content p,
+.mira-snackbar__content h1,
+.mira-snackbar__content h2,
+.mira-snackbar__content h3,
+.mira-snackbar__content h4,
+.mira-snackbar__content h5,
+.mira-snackbar__content h6 {
+  color: currentColor;
+}
+
 .mira-snackbar-list--left .mira-snackbar__content,
 .mira-snackbar-list--right .mira-snackbar__content {
   padding: 5px 15px 5px 5px;
