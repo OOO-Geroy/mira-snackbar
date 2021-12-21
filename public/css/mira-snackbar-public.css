@@ -242,6 +242,7 @@
 
 @media (max-width: 767px) {
   .mira-snackbar-list--fullwidth
+    .mira-snackbar--align-center
     .mira-snackbar__inner:not(:only-child)
     .mira-snackbar__content {
     padding: 0;
