@@ -227,6 +227,9 @@ class Mira_Snackbar {
 
 	}
 
+	/**
+	 * Example: do_action('mira_snackbar_top', ['sticky'])
+	 */
 	private function define_view() {
 		$view_plugin = new Mira_Snackbar_View();
 
