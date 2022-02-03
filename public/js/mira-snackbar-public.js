@@ -1,50 +1,151 @@
-(function () {
+const MiraSnackbars = (function () {
   "use strict";
-  const els = document.querySelectorAll(".mira-snackbar");
 
-  els.forEach((el) => {
-    const closeBtns = el.querySelectorAll(
-      ".mira-snackbar__close, .mira-snackbar__btn--close"
-    );
-    const links = el.querySelectorAll(".mira-snackbar__btn--link");
-    const popupTriggers = el.querySelectorAll(
-      ".mira-snackbar__btn--popup-trigger"
-    );
+  class MiraSnackbars {
+    init() {
+      this.initStaticSnackabrs();
+      this.initFixedSnackbars();
+    }
 
-    const data = {
-      id: el.dataset.sid,
-      expired: el.dataset.showAfter,
-    };
+    hydratate(els) {
+      els.forEach((el) => {
+        const closeBtns = el.querySelectorAll(
+          ".mira-snackbar__close, .mira-snackbar__btn--close"
+        );
+        const links = el.querySelectorAll(".mira-snackbar__btn--link");
+        const popupTriggers = el.querySelectorAll(
+          ".mira-snackbar__btn--popup-trigger"
+        );
 
-    closeBtns.forEach((btn) => {
-      btn.addEventListener("click", (e) => closeSnackbar(e, data), {
-        once: true,
+        const data = {
+          id: el.dataset.sid,
+          expired: el.dataset.showAfter,
+        };
+
+        closeBtns.forEach((btn) => {
+          btn.addEventListener("click", (e) => this.closeSnackbar(e, data), {
+            once: true,
+          });
+        });
+
+        links.forEach((link) =>
+          link.addEventListener("click", () => this.setSnackbarCookie(data), {
+            once: true,
+          })
+        );
+
+        popupTriggers.forEach((el) => this.initPopup(el));
+
+        if (el.dataset.delay)
+          setTimeout(
+            () => this.showDelayedSnackbar(el),
+            +el.dataset.delay * 1000
+          );
       });
-    });
+    }
 
-    links.forEach((link) =>
-      link.addEventListener("click", () => setSnackbarCookie(data), {
-        once: true,
-      })
-    );
+    initStaticSnackabrs() {
+      const els = document.querySelectorAll(".mira-snackbar");
+      this.hydratate(els);
+    }
 
-    popupTriggers.forEach((el) => initPopup(el));
+    async initFixedSnackbars() {
+      const html = await this.loadFixedSnackbars();
+      if (!html) return;
+      const els = this.apendFixedSnackbar(html);
+      this.hydratate(els);
+    }
 
-    if (el.dataset.delay)
-      setTimeout(() => showDelayedSnackbar(el), +el.dataset.delay * 1000);
-  });
+    async loadFixedSnackbars() {
+      try {
+        const res = await fetch(
+          mira_snackbar_settings.rest_api.base +
+            "/" +
+            mira_snackbar_settings.rest_api.get_snackbars,
+          {
+            headers: {
+              "X-WP-Nonce": mira_snackbar_settings.nonce,
+            },
+          }
+        );
+        const { data } = await res.json();
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
-  function closeSnackbar(e, data) {
-    const container = e.target.closest(".mira-snackbar-container");
-    const el = e.target.closest(".mira-snackbar");
-    el.classList.add("mira-snackbar--closed");
-    el.addEventListener("transitionend", () => container.remove());
-    setSnackbarCookie(data);
-  }
+    apendFixedSnackbar(html) {
+      const tpl = document.createElement("template");
+      tpl.innerHTML = html;
+      const els = tpl.content.querySelectorAll(".mira-snackbar");
+      document.body.append(tpl.content);
+      return els;
+    }
 
-  function setSnackbarCookie(data) {
-    if (checkCookie(`m-snackbar-${data.id}`)) return;
-    setCookie(`m-snackbar-${data.id}`, "showed", data.expired);
+    closeSnackbar(e, data) {
+      const container = e.target.closest(".mira-snackbar-container");
+      const el = e.target.closest(".mira-snackbar");
+      el.classList.add("mira-snackbar--closed");
+      el.addEventListener("transitionend", () => container.remove());
+      this.setSnackbarCookie(data);
+    }
+
+    setSnackbarCookie(data) {
+      if (checkCookie(`m-snackbar-${data.id}`)) return;
+      setCookie(`m-snackbar-${data.id}`, "showed", data.expired);
+    }
+
+    initPopup(triggerBtn) {
+      const popupEl = triggerBtn
+        .closest(".mira-snackbar-container")
+        .querySelector(".mira-snackbar-popup");
+      const closeBtn = popupEl.querySelector(".mira-snackbar-popup__close");
+
+      triggerBtn.addEventListener("click", () => this.openPopup(popupEl));
+      closeBtn.addEventListener("click", (e) => this.closePopup(e, popupEl));
+      popupEl.addEventListener("click", (e) => this.closePopup(e, popupEl));
+    }
+
+    openPopup(popupEl) {
+      popupEl.style.display = "";
+      setTimeout(() => {
+        popupEl.classList.add("mira-snackbar-popup--showed");
+      }, 17);
+    }
+
+    closePopup(e, popupEl) {
+      if (
+        !e.target.classList.contains("mira-snackbar-popup__close") &&
+        e.target != popupEl
+      )
+        return;
+      popupEl.classList.remove("mira-snackbar-popup--showed");
+      popupEl.addEventListener(
+        "transitionend",
+        () => (popupEl.style.display = "none"),
+        {
+          once: true,
+        }
+      );
+    }
+
+    showDelayedSnackbar(el) {
+      el.style.display = "";
+      setTimeout(() => {
+        el.classList.add("mira-snackbar--delayed-showing");
+        el.addEventListener(
+          "transitionend",
+          () => (
+            el.classList.remove("mira-snackbar--delayed"),
+            el.classList.remove("mira-snackbar--delayed-showing")
+          ),
+          {
+            once: true,
+          }
+        );
+      }, 16);
+    }
   }
 
   function getCookie(cname) {
@@ -79,54 +180,9 @@
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   }
 
-  function initPopup(triggerBtn) {
-    const popupEl = triggerBtn
-      .closest(".mira-snackbar-container")
-      .querySelector(".mira-snackbar-popup");
-    const closeBtn = popupEl.querySelector(".mira-snackbar-popup__close");
-
-    triggerBtn.addEventListener("click", () => openPopup(popupEl));
-    closeBtn.addEventListener("click", (e) => closePopup(e, popupEl));
-    popupEl.addEventListener("click", (e) => closePopup(e, popupEl));
-  }
-
-  function openPopup(popupEl) {
-    popupEl.style.display = "";
-    setTimeout(() => {
-      popupEl.classList.add("mira-snackbar-popup--showed");
-    }, 17);
-  }
-
-  function closePopup(e, popupEl) {
-    if (
-      !e.target.classList.contains("mira-snackbar-popup__close") &&
-      e.target != popupEl
-    )
-      return;
-    popupEl.classList.remove("mira-snackbar-popup--showed");
-    popupEl.addEventListener(
-      "transitionend",
-      () => (popupEl.style.display = "none"),
-      {
-        once: true,
-      }
-    );
-  }
-
-  function showDelayedSnackbar(el) {
-    el.style.display = "";
-    setTimeout(() => {
-      el.classList.add("mira-snackbar--delayed-showing");
-      el.addEventListener(
-        "transitionend",
-        () => (
-          el.classList.remove("mira-snackbar--delayed"),
-          el.classList.remove("mira-snackbar--delayed-showing")
-        ),
-        {
-          once: true,
-        }
-      );
-    }, 16);
-  }
+  return MiraSnackbars;
 })();
+
+const miraSnackbars = new MiraSnackbars();
+
+miraSnackbars.init();
