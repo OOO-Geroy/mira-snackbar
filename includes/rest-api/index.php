@@ -1,2 +1,2 @@
 <?
-require_once 'get-snackbar.php';
+require_once 'snackbars-rest-api.php';

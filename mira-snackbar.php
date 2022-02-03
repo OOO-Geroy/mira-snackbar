@@ -37,6 +37,8 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'MIRA_SNACKBAR_VERSION', '1.0.7' );
 
+define( 'MIRA_SNACKBAR_PATH', plugin_dir_path( __FILE__ ) );
+
 /**
  * REST API URL
  */

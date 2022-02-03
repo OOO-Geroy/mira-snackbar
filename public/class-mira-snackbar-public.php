@@ -101,7 +101,7 @@ class Mira_Snackbar_Public {
 		wp_localize_script( $this->plugin_name . 'public-js', 'mira_snackbar_settings', array(
 			'rest_api' => [
 				'base' => esc_url_raw( rest_url() . MIRA_SNACKBAR_REST_URL ),
-				'get_snackbars' => Mira_Snacbar_Rset_API::get_route(),
+				'get_snackbars' => Mira_Snackbars_Rest_Route::get_route(),
 			],
 			'nonce' => wp_create_nonce( 'wp_rest' )
 		) );
