@@ -96,7 +96,15 @@ class Mira_Snackbar_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/mira-snackbar-public.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_name . 'public-js', plugin_dir_url( __FILE__ ) . 'js/mira-snackbar-public.js', array( 'jquery' ), $this->version, true );
+
+		wp_localize_script( $this->plugin_name . 'public-js', 'mira_snackbar_settings', array(
+			'rest_api' => [
+				'base' => esc_url_raw( rest_url() . MIRA_SNACKBAR_REST_URL ),
+				'get_snackbars' => Mira_Snackbars_Rest_Route::get_route(),
+			],
+			'nonce' => wp_create_nonce( 'wp_rest' )
+		) );
 
 	}
 

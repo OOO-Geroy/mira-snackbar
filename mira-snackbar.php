@@ -37,6 +37,13 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'MIRA_SNACKBAR_VERSION', '1.0.7' );
 
+define( 'MIRA_SNACKBAR_PATH', plugin_dir_path( __FILE__ ) );
+
+/**
+ * REST API URL
+ */
+define('MIRA_SNACKBAR_REST_URL', 'mira-snackbar/v1');
+
 /**
  * Polyfills
  */
@@ -64,6 +71,8 @@ function deactivate_mira_snackbar() {
 register_activation_hook( __FILE__, 'activate_mira_snackbar' );
 register_deactivation_hook( __FILE__, 'deactivate_mira_snackbar' );
 
+
+require plugin_dir_path( __FILE__ ) . 'includes/rest-api/index.php';
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
