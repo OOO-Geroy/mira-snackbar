@@ -185,6 +185,7 @@ class Mira_Snackbar {
 	private function define_acf_groups() {
 		$plugin_model = new Mira_Snackbar_Acf_Model();
 		$this->loader->add_action( 'acf/init', $plugin_model, 'register_acf_groups' );
+		$this->loader->add_action( 'acf/save_post', $plugin_model, 'check_fields' );
 	}
 
 	/**

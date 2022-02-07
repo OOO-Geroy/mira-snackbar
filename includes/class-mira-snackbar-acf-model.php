@@ -526,4 +526,19 @@ class Mira_Snackbar_Acf_Model
 
 		endif;
 	}
+
+	function check_fields($post_id)
+	{
+		if (get_post_type($post_id) != 'mira_snackbar') return;
+		if (
+			get_field('layout_type', $post_id) == 'static' ||
+			get_field('layout_type', $post_id) == 'sticky'
+		) {
+			if (+get_field('show_delay', $post_id))
+				update_field('show_delay', 0, $post_id);
+
+			if (get_field('horizontal_location', $post_id) != 'fullwidth')
+				update_field('horizontal_location', 'fullwidth', $post_id);
+		}
+	}
 }

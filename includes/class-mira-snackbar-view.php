@@ -155,7 +155,11 @@ class Mira_Snackbar_View
         return array_map(function ($snackbar_id) {
             $layout_type = get_field('layout_type', $snackbar_id);
             $real_hor_pos = get_field('horizontal_location', $snackbar_id);
-            if ($layout_type == 'static' || $layout_type == 'sticky') $real_hor_pos = 'fullwidth';    
+            $real_show_delay = get_field('show_delay', $snackbar_id) ? (int) get_field('show_delay', $snackbar_id) : 0;
+            if ($layout_type == 'static' || $layout_type == 'sticky') {
+                $real_hor_pos = 'fullwidth';
+                $real_show_delay = 0;
+            }
             return [
                 'id' => $snackbar_id,
                 'content' => get_the_content(null, false, $snackbar_id),
@@ -172,7 +176,7 @@ class Mira_Snackbar_View
                 'background_color' => get_field('background_color', $snackbar_id),
                 'text_color' => get_field('text_color', $snackbar_id),
                 'show_after' => get_field('show_after', $snackbar_id),
-                'show_delay' => get_field('show_delay', $snackbar_id) ? (int) get_field('show_delay', $snackbar_id) : 0,
+                'show_delay' => $real_show_delay,
             ];
         }, $snackbar_ids);
     }
