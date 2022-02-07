@@ -88,7 +88,15 @@ class Mira_Snackbar_Acf_Model
 						'type' => 'number',
 						'instructions' => '',
 						'required' => 0,
-						'conditional_logic' => 0,
+						'conditional_logic' => array(
+							array(
+								array(
+									'field' => 'field_619e748e4f64b',
+									'operator' => '==',
+									'value' => 'fixed',
+								),
+							),
+						),
 						'wrapper' => array(
 							'width' => '50',
 							'class' => '',
