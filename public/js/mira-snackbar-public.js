@@ -36,11 +36,7 @@ const MiraSnackbars = (function () {
 
         popupTriggers.forEach((el) => this.initPopup(el));
 
-        if (el.dataset.delay)
-          setTimeout(
-            () => this.showDelayedSnackbar(el),
-            +el.dataset.delay * 1000
-          );
+        if (+el.dataset.delay) this.showDelayedSnackbar(el);
       });
     }
 
@@ -79,6 +75,12 @@ const MiraSnackbars = (function () {
       const tpl = document.createElement("template");
       tpl.innerHTML = html;
       const els = tpl.content.querySelectorAll(".mira-snackbar");
+      els.forEach((el) => {
+        if (+el.dataset.delay) return;
+        el.style.display = "none";
+        el.classList.add("mira-snackbar--delayed");
+        el.dataset.delay = 0.016;
+      });
       document.body.append(tpl.content);
       return els;
     }
@@ -144,7 +146,7 @@ const MiraSnackbars = (function () {
             once: true,
           }
         );
-      }, 16);
+      }, +el.dataset.delay * 1000);
     }
   }
 
