@@ -127,6 +127,9 @@
   transition-duration: 0.15s;
   transition-property: opacity, transform;
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+.mira-snackbar:not(.mira-snackbar--delayed) {
   pointer-events: all;
 }
 
