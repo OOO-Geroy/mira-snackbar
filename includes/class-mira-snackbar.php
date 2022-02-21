@@ -70,7 +70,7 @@ class Mira_Snackbar {
 		if ( defined( 'MIRA_SNACKBAR_VERSION' ) ) {
 			$this->version = MIRA_SNACKBAR_VERSION;
 		} else {
-			$this->version = '1.0.0';
+			$this->version = '1.0.5';
 		}
 		$this->plugin_name = 'mira-snackbar';
 
