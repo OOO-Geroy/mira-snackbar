@@ -23,6 +23,7 @@
   grid-template-columns: 1fr;
   row-gap: var(--mira-snackbar-row-gap);
   width: 100%;
+  pointer-events: none;
 }
 
 .mira-snackbar-list:empty {
@@ -126,6 +127,7 @@
   transition-duration: 0.15s;
   transition-property: opacity, transform;
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  pointer-events: all;
 }
 
 .mira-snackbar--delayed {
