@@ -369,6 +369,7 @@
   transition: opacity 600ms;
   box-sizing: border-box;
   color: var(--mira-snackbar-popup-color);
+  pointer-events: all;
 }
 
 .mira-snackbar-popup--showed {
